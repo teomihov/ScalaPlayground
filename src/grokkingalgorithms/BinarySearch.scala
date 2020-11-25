@@ -1,5 +1,5 @@
 package grokkingalgorithms
-
+// test ammend
 object BinarySearch extends App  {
   val array = 1 to 1000 toArray
   def binarySearch(target: Int, numbers: Array[Int]): Boolean = {

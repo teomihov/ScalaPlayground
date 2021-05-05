@@ -34,7 +34,7 @@ object DijkstraAlgorithm extends App {
   }
 
   def proceedNodes(): Unit = {
-    var node = findLowestCostNode(costs)
+    val node = findLowestCostNode(costs)
     if(node == "fin") return
 
     val cost = costs(node)

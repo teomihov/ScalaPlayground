@@ -1,5 +1,7 @@
 package grokkingalgorithms
 
+import scala.language.postfixOps
+
 object BinarySearch extends App  {
   val array = 1 to 1000 toArray
   def binarySearch(target: Int, numbers: Array[Int]): Boolean = {

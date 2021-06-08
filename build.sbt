@@ -22,4 +22,8 @@ libraryDependencies ++= Seq(
   // JWT
   //"com.pauldijou" %% "jwt-spray-json" % "2.1.0"
 
+  "org.quartz-scheduler" % "quartz" % "2.3.1",
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "org.postgresql" % "postgresql" % "42.2.5"
+
 )

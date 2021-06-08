@@ -63,5 +63,59 @@ object LowLevelAPI extends App {
     conn.handleWithSyncHandler(requestHanlder)
   }
 
-  Http().newServerAt("localhost", 8080).connectionSource().runWith(httpSyncConnectionHandler)
+  // Http().newServerAt("localhost", 8080).connectionSource().runWith(httpSyncConnectionHandler)
+
+  val myHttpServer: HttpRequest => HttpResponse = {
+    case HttpRequest(HttpMethods.GET, Uri.Path("/about"), _, _, _) =>
+      HttpResponse(
+        StatusCodes.OK,
+        entity = HttpEntity(
+          ContentTypes.`text/html(UTF-8)`,
+          """
+            |<html><body>
+            | This is our about page
+            |</body></html>
+            |""".stripMargin
+        )
+      )
+    case HttpRequest(HttpMethods.GET, Uri.Path("/"), _, _, _) =>
+      HttpResponse(
+        StatusCodes.OK,
+        entity = HttpEntity(
+          ContentTypes.`text/html(UTF-8)`,
+          """
+            |<html><body>
+            | Front Door
+            |</body></html>
+            |""".stripMargin
+        )
+      )
+
+    case HttpRequest(HttpMethods.GET, Uri.Path("/search"), _, _, _) =>
+      HttpResponse(
+        StatusCodes.Found,
+        headers = List(Location("http://google.com"))
+      )
+    case request: HttpRequest =>
+      request.discardEntityBytes()
+      HttpResponse(
+        StatusCodes.NotFound,
+        entity = HttpEntity(
+          ContentTypes.`text/html(UTF-8)`,
+          """
+            |<html><body>
+            | Not Found
+            |</body></html>
+            |""".stripMargin
+        )
+      )
+  }
+
+  val myHttpConnectionHandler = Sink.foreach[IncomingConnection]{ conn =>
+    conn.handleWithSyncHandler(myHttpServer)
+  }
+
+  Http().newServerAt("localhost", 8388)
+    .connectionSource()
+    .runWith(myHttpConnectionHandler)
 }

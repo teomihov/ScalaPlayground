@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="sbt: org.quartz-scheduler:quartz:2.3.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/quartz-scheduler/quartz/2.3.1/quartz-2.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/quartz-scheduler/quartz/2.3.1/quartz-2.3.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/quartz-scheduler/quartz/2.3.1/quartz-2.3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

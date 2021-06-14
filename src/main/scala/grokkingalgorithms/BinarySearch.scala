@@ -16,4 +16,25 @@ object BinarySearch extends App  {
   println(binarySearch(22, array))
   println(binarySearch(222, array))
   println(binarySearch(2222, array))
+
+  trait Functor[F[_]] {
+    def fmap[A,B](f:A=>B, fa: F[A]):F[B]
+    //(<$) in Haskell
+    def left[C,D](a:C, fb:F[D]):F[C] = {
+      val test: Any => C = Function.const(a)
+      fmap(Function.const(a), fb)
+    }
+  }
+
+  val a = Seq(12,3,4,5)
+  println(a)
+
+
+  var d = Map.empty[Int, String]
+  d = d + (1 -> "test")
+  d = d + (2 -> "teo")
+  d = d + (2 -> "asd")
+  d = d + (1 -> "test1")
+
+  println(d)
 }

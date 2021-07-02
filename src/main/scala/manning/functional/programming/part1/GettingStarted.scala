@@ -1,5 +1,7 @@
 package manning.functional.programming.part1
 
+import manning.functional.programming.part1.List.sum
+
 object GettingStarted extends App {
   def abs(n: Int): Int =
     if (n < 0) -n
@@ -30,7 +32,6 @@ object GettingStarted extends App {
 
   println(formatResult("absolute value", -42, abs))
   println(formatResult("fibonacci", 10, fib))
-
   def findFirst[A](ss: Array[A], p: A => Boolean): Int = {
     @annotation.tailrec
     def loop(n: Int): Int = {
@@ -90,4 +91,15 @@ object GettingStarted extends App {
 
   def composeCheating[A,B,C](f: B => C, g: A => B): A => C =
     f.compose(g)
+
+  // EXERCISE 3.1
+  val x = List(1,2,3,4,5) match {
+    case Cons(x, Cons(2, Cons(4, _))) => x
+    case Nil => 42
+    case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
+    case Cons(h, t) => h + sum(t)
+    case _ => 101
+  }
+  println(s"The result of exercise 3.1 is: $x")
+
 }

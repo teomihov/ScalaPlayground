@@ -4,15 +4,11 @@ import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
-import rockthejvm.akkahttp.part2_lowlevelserver.GuitarDB.CreateGuitar
-import rockthejvm.akkahttp.part2_lowlevelserver.RestfulWithJson.{guitarDb, system}
 import rockthejvm.akkahttp.part2_lowlevelserver.{Guitar, GuitarDB, GuitarStoreJsonProtocol}
 import spray.json._
 
-import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 
 object HighLevelExample extends App with GuitarStoreJsonProtocol {
@@ -48,6 +44,18 @@ object HighLevelExample extends App with GuitarStoreJsonProtocol {
   val guitarServerRoute = {
     path("api" / "guitar") {
       get {
+        complete {
+          (guitarDb ? FindAllGuitars)
+            .mapTo[List[Guitar]]
+            .map { guitars =>
+              HttpEntity(
+                ContentTypes.`application/json`,
+                guitars.toJson.prettyPrint
+              )
+            }
+        }
+      } ~
+      get {
         parameter("id".as[Int]) { id =>
           complete {
             val guitarFuture = (guitarDb ? FindGuitar(id)).mapTo[Option[Guitar]]
@@ -58,18 +66,6 @@ object HighLevelExample extends App with GuitarStoreJsonProtocol {
               )
             }
           }
-        }
-      } ~
-      get {
-        complete {
-          (guitarDb ? FindAllGuitars)
-            .mapTo[List[Guitar]]
-            .map { guitars =>
-              HttpEntity(
-                ContentTypes.`application/json`,
-                guitars.toJson.prettyPrint
-              )
-            }
         }
       }
     } ~

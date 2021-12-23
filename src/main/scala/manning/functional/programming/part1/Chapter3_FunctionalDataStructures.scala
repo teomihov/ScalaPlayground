@@ -2,7 +2,7 @@ package manning.functional.programming.part1
 
 import scala.{:+, ::}
 
-object FunctionalDataStructures extends App {
+object Chapter3_FunctionalDataStructures extends App {
   val l = List(1, 2, 3, 4, 5, 6)
   // println(removeFirstElement(l))
 

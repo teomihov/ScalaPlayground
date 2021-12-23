@@ -18,6 +18,7 @@ import rockthejvm.akkahttp.part4_client.PaymentSystemDomain.{PaymentAccepted, Pa
 import spray.json._
 
 import java.io.File
+import scala.collection.mutable
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
@@ -56,7 +57,26 @@ object PaymentSystem extends App with PaymentJsonProtocol with SprayJsonSupport 
 
   import system.dispatcher
 
-  val paymentValidator = system.actorOf(Props[PaymentValidator], "paymentValidator")
+  def test() : Future[Seq[String]] = Future {
+    Seq("1", "2", "3")
+  }
+
+  test().map(_.foreach(el => {
+    println("test")
+    throw new RuntimeException()
+  })).onComplete {
+    case Success(_) =>
+      println("organization-level aggregate maintenance jobs scheduled")
+    case Failure(ex) =>
+      println("exception while scheduling organization-level aggregate maintenance jobs")
+  }
+
+  test().map(_.foreach(el => {
+    println("test")
+    throw new RuntimeException()
+  })).onComplete(x => println("V igrata sme: " + x))
+
+    val paymentValidator = system.actorOf(Props[PaymentValidator], "paymentValidator")
   implicit val timeout = Timeout(2.seconds)
   val paymentRoute =
     path("api" / "payments") {

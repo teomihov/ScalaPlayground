@@ -36,5 +36,9 @@ object BinarySearch extends App  {
   d = d + (2 -> "asd")
   d = d + (1 -> "test1")
 
+  val test = Some(1)
+  val rr = d.filter(x => test.getOrElse(5).equals(x._1))
+
+  println(rr)
   println(d)
 }

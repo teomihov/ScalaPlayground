@@ -2,7 +2,7 @@ package manning.functional.programming.part1
 
 import manning.functional.programming.part1.List.sum
 
-object GettingStarted extends App {
+object Chapter2 extends App {
   def abs(n: Int): Int =
     if (n < 0) -n
     else n

@@ -2,7 +2,7 @@ package coursera.scalaFunctionalProgramming.week5
 
 import scala.::
 
-object MoreFunctions extends App {
+object Lecture5_1 extends App {
   def concat[T](xs: List[T], ys: List[T]): List[T] = xs match {
     case List() => ys
     case h :: restElements => h :: concat(restElements, ys)

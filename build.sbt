@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   // akka streams
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
+  "com.typesafe.akka" % "akka-actor-testkit-typed_2.12" % akkaVersion % Test,
 
   // akka http
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,

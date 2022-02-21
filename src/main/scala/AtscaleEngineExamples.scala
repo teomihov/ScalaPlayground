@@ -112,8 +112,8 @@ object SourceSinkTest extends App {
   val overflowStrategy = akka.stream.OverflowStrategy.backpressure
 
   val queue = Source.queue[Weather](bufferSize, overflowStrategy)
-    .filter(_.raining)
-    .via(removeConsecutiveDuplicates)
+    //.filter(_.raining)
+    //.via(removeConsecutiveDuplicates)
     .to(slowSink)
     .run() // in order to "keep" the queue Materialized value instead of the Sink's
 
@@ -154,4 +154,9 @@ object SourceSinkTest extends App {
 //      case QueueOfferResult.QueueClosed => println("Source Queue closed")
 //    }
 //  }
+}
+
+
+object FiniteDurationExamples extends App {
+  println((3.hour / 1.minute) * 20)
 }
